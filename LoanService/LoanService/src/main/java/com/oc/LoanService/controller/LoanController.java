@@ -2,6 +2,7 @@ package com.oc.LoanService.controller;
 
 
 import com.oc.LoanService.dao.LoanDao;
+import com.oc.LoanService.exceptions.LoanNotFoundException;
 import com.oc.LoanService.model.Loan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,16 @@ public class LoanController {
 
     @GetMapping(value = "LoansSearch/{idUser}")
     public List<Loan> findLoanByUser(@PathVariable Long idUser) {
-        return loanDao.findByUser(idUser);
+        List<Loan> loanList = loanDao.findByUser(idUser);
+        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt pour l'utilisateur "+idUser+" n'a été trouvé.");
+        return loanList;
     }
 
     @GetMapping(value = "Loans/{id}")
     public Optional<Loan> displayLoan(@PathVariable Long id) {
-        return loanDao.findById(id);
+        Optional<Loan> loan = loanDao.findById(id);
+        if (!loan.isPresent()) throw new LoanNotFoundException("Le pret avec l'id "+id+" n'existe pas.");
+        return loan;
     }
 
     @PostMapping(value = "Loans")
@@ -42,6 +47,8 @@ public class LoanController {
     }
     @GetMapping(value = "Loans")
     public List<Loan> ListLoan(){
-        return loanDao.findAll();
+        List<Loan> loanList = loanDao.findAll();
+        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt n'a été trouvé.");
+        return loanList;
     }
 }

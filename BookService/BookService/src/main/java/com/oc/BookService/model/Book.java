@@ -1,5 +1,7 @@
 package com.oc.BookService.model;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,9 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Length(min = 3,max = 100,message = "Le titre doit être compris entre 3 et 100 caractères.")
     private String title;
+    @Length(min = 3,max = 45,message = "L'auteur doit être compris entre 3 et 100 caractères.")
     private String autor;
     private int nbTotal;
     private int nbRemaining;

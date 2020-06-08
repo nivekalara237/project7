@@ -1,7 +1,6 @@
-package com.oc.LoanService.model;
+package com.oc.LoanEditService.model;
 
 import com.sun.istack.NotNull;
-import org.hibernate.annotations.NotFound;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
