@@ -11,8 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.List;
 
@@ -27,14 +30,6 @@ public class ClientController {
 
     @GetMapping(name = "/")
     public String homepage(Model model){
-        // -- Utilisation d'un utilisateur --
-        UserBean user = new UserBean();
-        user.setId((long) 1);
-        user.setFirstname("Geoffrey");
-        user.setName("D.");
-        user.setMail("dg@gmail.com");
-        user.setUsername("test");
-        user.setPassword("123");
         // **************************************** Test des fonctionnalité de bookService *********************************************************
 //        List<BookBean> books = microserviceBookProxy.findBookByKeyword("le");
 //        BookBean books1 = microserviceBookProxy.displayBook((long) 2);
@@ -71,6 +66,47 @@ public class ClientController {
         BookBean book = microserviceBookProxy.displayBook(id);
         modelAndView.addObject("book",book);
         return modelAndView;
+    }
+
+    @GetMapping("loans")
+    public String showListLoanByUser(Model model){
+        // -- Utilisation d'un utilisateur --
+        UserBean user = new UserBean();
+        user.setId((long) 1);
+        user.setFirstname("Geoffrey");
+        user.setName("D.");
+        user.setMail("dg@gmail.com");
+        user.setUsername("test");
+        user.setPassword("123");
+        //---
+
+        List<LoanBean> loans = microserviceLoanProxy.findLoanByUser(user.getId());
+        model.addAttribute("loans",loans);
+        return "loans";
+    }
+
+    @GetMapping("loan/{id}")
+    public ModelAndView showLoanPage(@PathVariable(name = "id") long id){
+        ModelAndView modelAndView = new ModelAndView("loan");
+        LoanBean loan = microserviceLoanProxy.displayLoan(id);
+        modelAndView.addObject("loan",loan);
+        return modelAndView;
+    }
+
+    @GetMapping("/extension/{id}")
+    public String addExtension(@PathVariable(name = "id") Long id){
+        microserviceLoanEditProxy.addExtension(id);
+        return "redirect:/loan/"+id;
+    }
+
+    @PostMapping("/search")
+    public String viewSearchPage(HttpServletRequest request){
+        String search = (String) request.getAttribute("search");
+        System.out.println(search);
+        if(search==null)
+            return "redirect:/";
+        else
+            return "redirect:/loans";
     }
 
 }

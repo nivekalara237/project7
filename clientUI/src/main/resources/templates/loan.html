@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="_include/head"></head>
+<body>
+<nav th:include="_include/nav"></nav>
+
+<div class="container">
+
+    <h3 th:text="${loan.id}"></h3>
+    <ul>
+        <li th:text="${loan.idUser}">
+        </li>
+        <li th:text="${loan.idBook}">
+        </li>
+        <li th:text="${loan.nbExtension}">
+        </li>
+        <li th:text="${loan.returned}">
+        </li>
+    </ul>
+    <div th:if="${loan.nbExtension == 0}">
+        <a th:href="@{'/extension/'+${loan.id}}">Faire une extension de 28 jours</a>
+    </div>
+
+</div>
+
+
+<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
