@@ -21,7 +21,7 @@ public class BookController {
     @GetMapping(value = "BooksSearch/{keyword}")
     public List<Book> findBookByKeyword(@PathVariable String keyword) throws BookNotFoundException {
         List<Book> bookList = bookDao.findByKeyword(keyword);
-        if(! bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage avec la recherche "+keyword+" n'a été trouvé.");
+        if( bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage avec la recherche "+keyword+" n'a été trouvé.");
         return bookList;
     }
 
