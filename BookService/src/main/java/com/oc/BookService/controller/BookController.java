@@ -1,5 +1,6 @@
 package com.oc.BookService.controller;
 
+import com.oc.BookService.configuration.ApplicationPropertiesConfiguration;
 import com.oc.BookService.dao.BookDao;
 import com.oc.BookService.exceptions.BookNotFoundException;
 import com.oc.BookService.model.Book;
@@ -17,6 +18,9 @@ import java.util.Optional;
 public class BookController {
     @Autowired
     private BookDao bookDao;
+
+    @Autowired
+    ApplicationPropertiesConfiguration appProperties;
 
     @GetMapping(value = "BooksSearch/{keyword}")
     public List<Book> findBookByKeyword(@PathVariable String keyword) throws BookNotFoundException {
@@ -48,6 +52,7 @@ public class BookController {
     public List<Book> ListBook(){
         List<Book> bookList = bookDao.findAll();
         if( bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage n'a été trouvé.");
-        return bookList;
+        List<Book> listLimit = bookList.subList(0,appProperties.getLimiteDeLivres());
+        return listLimit;
     }
 }
