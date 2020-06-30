@@ -11,9 +11,7 @@ import java.util.List;
 
 @Repository
 public interface LoanDao extends JpaRepository<Loan, Long> {
-//    @Query("SELECT loan FROM Loan loan WHERE loan.returned =  false and loan.dateEnd <= :dateNow")
-//    List<Loan> findByNotReturnedandAndDateEnd(@Param("dateNow")Date date);
+    @Query("SELECT loan FROM Loan loan WHERE loan.returned =  false and loan.dateEnd <= :dateNow")
+    List<Loan> findByNotReturnedandAndDateEnd(@Param("dateNow")Date date);
 
-    @Query("SELECT loan FROM Loan loan WHERE loan.returned =  false ")
-    List<Loan> findByNotReturnedandAndDateEnd();
 }

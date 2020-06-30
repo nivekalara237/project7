@@ -22,7 +22,6 @@ public class LoanController {
 
     @GetMapping(value = "LoansSearch/{idUser}")
     public List<Loan> findLoanByUser(@PathVariable Long idUser) {
-        System.out.println("l.25 -> /loans/id in findLoanByUser in loanController");
         List<Loan> loanList = loanDao.findByUser(idUser);
         if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt pour l'utilisateur "+ idUser +" n'a été trouvé.");
         return loanList;

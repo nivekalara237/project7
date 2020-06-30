@@ -113,7 +113,7 @@ public class ClientController {
     @GetMapping("/extension/{id}")
     public String addExtension(@PathVariable(name = "id") Long id){
         microserviceLoanEditProxy.addExtension(id);
-        return "redirect:/loans";
+        return "redirect:/LoansSearch/1";
     }
 
     @PostMapping("/search")
