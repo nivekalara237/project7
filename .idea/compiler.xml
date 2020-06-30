@@ -6,18 +6,24 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="LoanEditService" />
         <module name="clientUI" />
-        <module name="LoanService" />
         <module name="BookService" />
+        <module name="config-server" />
+        <module name="batch" />
+        <module name="UserService" />
+        <module name="LoanService" />
+        <module name="LoanEditService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="batch" target="1.8" />
       <module name="BookService" target="1.8" />
       <module name="clientUI" target="1.8" />
+      <module name="config-server" target="1.8" />
       <module name="LoanEditService" target="1.8" />
       <module name="LoanService" target="1.8" />
       <module name="mcommandes" target="1.8" />
+      <module name="UserService" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -25,7 +31,10 @@
       <module name="BookService" options="-parameters" />
       <module name="LoanEditService" options="-parameters" />
       <module name="LoanService" options="-parameters" />
+      <module name="UserService" options="-parameters" />
+      <module name="batch" options="-parameters" />
       <module name="clientUI" options="-parameters" />
+      <module name="config-server" options="-parameters" />
       <module name="mcommandes" options="-parameters" />
     </option>
   </component>

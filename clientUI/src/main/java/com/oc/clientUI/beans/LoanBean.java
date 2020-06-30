@@ -3,13 +3,16 @@ import java.sql.Date;
 
 public class LoanBean {
     private Long id;
-    private Long idUser;
-    private Long idBook;
+    private UserBean user;
+    private BookBean book;
     private Date dateStart;
-    private int nbExtension;
+    private Date dateEnd;
+    private boolean extension;
     private boolean returned;
 
     public LoanBean() {
+        this.user = new UserBean();
+        this.book = new BookBean();
     }
 
     public Long getId() {
@@ -20,22 +23,6 @@ public class LoanBean {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public Long getIdBook() {
-        return idBook;
-    }
-
-    public void setIdBook(Long idBook) {
-        this.idBook = idBook;
-    }
-
     public Date getDateStart() {
         return dateStart;
     }
@@ -44,13 +31,6 @@ public class LoanBean {
         this.dateStart = dateStart;
     }
 
-    public int getNbExtension() {
-        return nbExtension;
-    }
-
-    public void setNbExtension(int nbExtension) {
-        this.nbExtension = nbExtension;
-    }
 
     public boolean isReturned() {
         return returned;
@@ -60,14 +40,47 @@ public class LoanBean {
         this.returned = returned;
     }
 
+    public UserBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserBean user) {
+        this.user = user;
+    }
+
+    public BookBean getBook() {
+        return book;
+    }
+
+    public void setBook(BookBean book) {
+        this.book = book;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public boolean isExtension() {
+        return extension;
+    }
+
+    public void setExtension(boolean extension) {
+        this.extension = extension;
+    }
+
     @Override
     public String toString() {
         return "LoanBean{" +
                 "id=" + id +
-                ", idUser=" + idUser +
-                ", idBook=" + idBook +
+                ", user=" + user +
+                ", book=" + book +
                 ", dateStart=" + dateStart +
-                ", nbExtension=" + nbExtension +
+                ", dateEnd=" + dateEnd +
+                ", extension=" + extension +
                 ", returned=" + returned +
                 '}';
     }

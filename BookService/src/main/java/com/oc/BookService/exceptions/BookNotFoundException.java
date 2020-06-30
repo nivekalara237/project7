@@ -1,11 +1,12 @@
 package com.oc.BookService.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
 public class BookNotFoundException extends RuntimeException {
+    Logger logger = LoggerFactory.getLogger(BookNotFoundException.class);
     public BookNotFoundException(String s) {
         super(s);
+        logger.warn("Message BookNotFoundException : "+super.getMessage());
     }
 }

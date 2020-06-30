@@ -18,6 +18,8 @@ public class Book {
     private String autor;
     private int nbTotal;
     private int nbRemaining;
+    @Length(max = 500,message = "Le lien est trop grand (max : 500 caractères).")
+    private String image;
 
     public Book() {
     }
@@ -55,6 +57,14 @@ public class Book {
     }
     public void setNbRemaining(int nbRemaining) {
         this.nbRemaining = nbRemaining;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

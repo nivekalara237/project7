@@ -1,5 +1,7 @@
 package com.oc.clientUI.beans;
 
+import com.oc.clientUI.enums.Role;
+
 public class UserBean {
     private Long id;
     private String name;
@@ -7,8 +9,10 @@ public class UserBean {
     private String mail;
     private String username;
     private String password;
+    private Role role;
 
     public UserBean() {
+        role=Role.NOT_CONNECTED;
     }
 
     public Long getId() {
@@ -59,6 +63,14 @@ public class UserBean {
         this.password = password;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "UserBean{" +
@@ -68,6 +80,7 @@ public class UserBean {
                 ", mail='" + mail + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

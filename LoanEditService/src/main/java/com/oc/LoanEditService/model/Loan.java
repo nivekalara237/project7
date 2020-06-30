@@ -1,11 +1,6 @@
 package com.oc.LoanEditService.model;
 
-import com.sun.istack.NotNull;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
@@ -13,11 +8,16 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long idUser;
-    private Long idBook;
     private Date dateStart;
-    private int nbExtension;
+    private Date dateEnd;
+    private boolean extension;
     private boolean returned;
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "id_book")
+    private Book book;
 
     public Loan() {
     }
@@ -29,32 +29,11 @@ public class Loan {
         this.id = id;
     }
 
-    public Long getIdUser() {
-        return idUser;
-    }
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public Long getIdBook() {
-        return idBook;
-    }
-    public void setIdBook(Long idBook) {
-        this.idBook = idBook;
-    }
-
     public Date getDateStart() {
         return dateStart;
     }
     public void setDateStart(Date dateStart) {
         this.dateStart = dateStart;
-    }
-
-    public int getNbExtension() {
-        return nbExtension;
-    }
-    public void setNbExtension(int nbExtension) {
-        this.nbExtension = nbExtension;
     }
 
     public boolean isReturned() {
@@ -64,15 +43,48 @@ public class Loan {
         this.returned = returned;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
+    public boolean isExtension() {
+        return extension;
+    }
+
+    public void setExtension(boolean extension) {
+        this.extension = extension;
+    }
+
     @Override
     public String toString() {
         return "Loan{" +
                 "id=" + id +
-                ", idUser=" + idUser +
-                ", idBook=" + idBook +
                 ", dateStart=" + dateStart +
-                ", nbExtension=" + nbExtension +
+                ", dateEnd=" + dateEnd +
+                ", extension=" + extension +
                 ", returned=" + returned +
+                ", user=" + user +
+                ", book=" + book +
                 '}';
     }
 }

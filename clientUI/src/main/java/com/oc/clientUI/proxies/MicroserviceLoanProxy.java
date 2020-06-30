@@ -1,6 +1,7 @@
 package com.oc.clientUI.proxies;
 
 import com.oc.clientUI.beans.LoanBean;
+import com.oc.clientUI.beans.UserBean;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

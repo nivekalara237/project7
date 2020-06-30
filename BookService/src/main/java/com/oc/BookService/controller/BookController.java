@@ -5,6 +5,7 @@ import com.oc.BookService.dao.BookDao;
 import com.oc.BookService.exceptions.BookNotFoundException;
 import com.oc.BookService.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,16 +25,15 @@ public class BookController {
 
     @GetMapping(value = "BooksSearch/{keyword}")
     public List<Book> findBookByKeyword(@PathVariable String keyword) throws BookNotFoundException {
-        List<Book> bookList = bookDao.findByKeyword(keyword);
-        if( bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage avec la recherche "+keyword+" n'a été trouvé.");
+       List<Book> bookList = bookDao.findByKeyword(keyword);
+//        if(bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage avec la recherche "+keyword+" n'a été trouvé.");
+//        // Si une exception est levé, alors bookList n'est jamais renvoyé
         return bookList;
     }
 
     @GetMapping(value = "Books/{id}")
-    public Optional<Book> displayBook(@PathVariable Long id) throws BookNotFoundException {
-        Optional<Book> book = bookDao.findById(id);
-        if( !book.isPresent()) throw new BookNotFoundException("L'ouvrage avec l'id "+id+" n'existe pas.");
-        return book;
+    public Book displayBook(@PathVariable Long id) {
+        return bookDao.findById(id).orElseThrow(() -> new BookNotFoundException("L'ouvrage avec l'id "+id+" n'existe pas."));
     }
 
     @PostMapping(value = "Books")
@@ -56,3 +56,4 @@ public class BookController {
         return listLimit;
     }
 }
+

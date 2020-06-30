@@ -4,6 +4,7 @@ package com.oc.LoanService.controller;
 import com.oc.LoanService.dao.LoanDao;
 import com.oc.LoanService.exceptions.LoanNotFoundException;
 import com.oc.LoanService.model.Loan;
+import com.oc.LoanService.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,9 @@ public class LoanController {
 
     @GetMapping(value = "LoansSearch/{idUser}")
     public List<Loan> findLoanByUser(@PathVariable Long idUser) {
+        System.out.println("l.25 -> /loans/id in findLoanByUser in loanController");
         List<Loan> loanList = loanDao.findByUser(idUser);
-        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt pour l'utilisateur "+idUser+" n'a été trouvé.");
+        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt pour l'utilisateur "+ idUser +" n'a été trouvé.");
         return loanList;
     }
 
@@ -45,10 +47,13 @@ public class LoanController {
                 .toUri();
         return ResponseEntity.created(location).build();
     }
-    @GetMapping(value = "Loans")
-    public List<Loan> ListLoan(){
-        List<Loan> loanList = loanDao.findAll();
-        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt n'a été trouvé.");
-        return loanList;
-    }
+//    @GetMapping(value = "Loans")
+//    public List<Loan> ListLoan(){
+//        System.out.println("test");
+//        List<Loan> loanList = loanDao.findAll();
+//        System.out.println("test1");
+//        if(loanList.isEmpty()) throw new LoanNotFoundException("Aucun prêt n'a été trouvé.");
+//        System.out.println("test2");
+//        return loanList;
+//    }
 }

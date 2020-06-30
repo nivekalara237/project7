@@ -6,7 +6,10 @@
       <module fileurl="file://$PROJECT_DIR$/LoanEditService/LoanEditService.iml" filepath="$PROJECT_DIR$/LoanEditService/LoanEditService.iml" />
       <module fileurl="file://$PROJECT_DIR$/LoanService/LoanService.iml" filepath="$PROJECT_DIR$/LoanService/LoanService.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Projet7.iml" filepath="$PROJECT_DIR$/.idea/Projet7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UserService/UserService.iml" filepath="$PROJECT_DIR$/UserService/UserService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/batch/batch.iml" filepath="$PROJECT_DIR$/batch/batch.iml" />
       <module fileurl="file://$PROJECT_DIR$/clientUI/clientUI.iml" filepath="$PROJECT_DIR$/clientUI/clientUI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/config-server/config-server.iml" filepath="$PROJECT_DIR$/config-server/config-server.iml" />
     </modules>
   </component>
 </project>
