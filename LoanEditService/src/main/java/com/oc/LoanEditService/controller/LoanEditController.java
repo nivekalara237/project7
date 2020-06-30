@@ -20,7 +20,7 @@ public class LoanEditController {
     public void addExtension(@PathVariable Long id){
         Optional<Loan> loan= loanDao.findById(id);
         if(!loan.isPresent()) throw new LoanNotFoundException("Le pret avec l'id "+id+" n'existe pas.");
-        extensionService.addExtension(loan.get(), 28);
+        extensionService.addExtension(loan.get());
         Loan loanCheck = loanDao.save(loan.get());
     }
 

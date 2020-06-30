@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="_include/head"></head>
+<body>
+<nav th:include="_include/nav"></nav>
+
+<div class="row">
+    <!--/*@thymesVar id="userCurrent" type="com.oc.clientUI.beans.UserBean"*/-->
+    <form method="post" action="#" th:action="@{/logInCheck}" th:object="${userCurrent}" class="col-lg form-horizontal well">
+        <legend class="h4 border-bottom">Connexion</legend>
+        <br>
+        <div>
+            <fieldset >
+                <div class="row form-group">
+                    <label for="pseudo" class="offset-lg-1 offset-sm-1 col-2 control-label">Pseudo:</label>
+                    <div class="col-7">
+                        <input id="pseudo" th:field="*{username}" type="text" class="form-control"  placeholder="pseudo" required="required" autofocus="autofocus">
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label for="password" class="offset-lg-1 offset-sm-1 col-2 control-label">Mot de passe:</label>
+                    <div class="col-7">
+                        <input id="password" th:field="*{password}" type="password" class="form-control" th:fie placeholder="mot de passe" required="required">
+                    </div>
+                </div>
+                <div class="mid">
+                    <p th:text="${message}" class="text-danger"></p>
+                </div>
+                <button class="btn btn-primary offset-9" type="submit">Se connecter</button>
+            </fieldset>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript" src="webjars/bootstrap/4.0.0-2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

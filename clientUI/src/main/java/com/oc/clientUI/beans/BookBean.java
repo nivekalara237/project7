@@ -6,6 +6,7 @@ public class BookBean {
     private String autor;
     private int nbTotal;
     private int nbRemaining;
+    private String image;
 
     public BookBean() {
     }
@@ -48,6 +49,14 @@ public class BookBean {
 
     public void setNbRemaining(int nbRemaining) {
         this.nbRemaining = nbRemaining;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override
