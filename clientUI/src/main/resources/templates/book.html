@@ -9,9 +9,9 @@
     <h3 th:text="${book.title}"></h3>
     <ul>
         <li><img th:src="${book.image}" alt="..." class="img-thumbnail"></li>
-        <li th:text="${book.autor}">
+        <li> Auteur : <span th:text="${book.autor}" />
         </li>
-        <li th:text="${book.nbRemaining}">
+        <li> Nombre restant :  <span th:text="${book.nbRemaining}"/>
         </li>
     </ul>
 

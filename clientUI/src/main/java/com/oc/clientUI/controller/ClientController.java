@@ -5,10 +5,7 @@ import com.oc.clientUI.beans.LoanBean;
 import com.oc.clientUI.beans.Search;
 import com.oc.clientUI.beans.UserBean;
 import com.oc.clientUI.enums.Role;
-import com.oc.clientUI.proxies.MicroserviceBookProxy;
-import com.oc.clientUI.proxies.MicroserviceLoanEditProxy;
-import com.oc.clientUI.proxies.MicroserviceLoanProxy;
-import com.oc.clientUI.proxies.MicroserviceUserProxy;
+import com.oc.clientUI.proxies.MicroserviceProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,25 +14,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.sql.Date;
 import java.util.List;
 
 @Controller
 public class ClientController {
     @Autowired
-    MicroserviceBookProxy microserviceBookProxy;
-    @Autowired
-    MicroserviceLoanProxy microserviceLoanProxy;
-    @Autowired
-    MicroserviceLoanEditProxy microserviceLoanEditProxy;
-    @Autowired
-    MicroserviceUserProxy microserviceUserProxy;
+    MicroserviceProxy microserviceProxy;
+
 
     @GetMapping(name = "/")
     public String homepage(Model model,HttpServletRequest request){
         Search search = new Search();
         model.addAttribute("search",search);
-        List<BookBean> books2 = microserviceBookProxy.ListBook();
+        List<BookBean> books2 = microserviceProxy.ListBook();
         model.addAttribute("books",books2);
         UserBean userCurrent = getUserSession(request);
         model.addAttribute("userCurrent", userCurrent);
@@ -63,7 +54,7 @@ public class ClientController {
         HttpSession session = request.getSession();
         UserBean userCurrent = (UserBean) session.getAttribute("userCurrent");
         if (userCurrent == null) {
-            UserBean userSearch = microserviceUserProxy.findByUsername(user.getUsername());
+            UserBean userSearch = microserviceProxy.findByUsername(user.getUsername());
             if(userSearch != null){
                 if (user.getPassword().equals(userSearch.getPassword())) {
                     model.addAttribute("userCurrent", userSearch);
@@ -92,17 +83,18 @@ public class ClientController {
         ModelAndView modelAndView = new ModelAndView("book");
         UserBean userCurrent = getUserSession(request);
         modelAndView.addObject("userCurrent", userCurrent);
-        BookBean book = microserviceBookProxy.displayBook(id);
+        BookBean book = microserviceProxy.displayBook(id);
         modelAndView.addObject("book",book);
         return modelAndView;
     }
 
-    @GetMapping(value = "LoansSearch/{idUser}")
-    public String showListLoanByUser(Model model,HttpServletRequest request,@PathVariable(name = "idUser") Long idUser){
+    @GetMapping(value = "LoansSearch")
+    public String showListLoanByUser(Model model,HttpServletRequest request){
         UserBean userCurrent = getUserSession(request);
         model.addAttribute("userCurrent", userCurrent);
+        System.out.println("1");
         if(userCurrent.getRole() == Role.USER){
-            List<LoanBean> loans = microserviceLoanProxy.findLoanByUser(userCurrent.getId());
+            List<LoanBean> loans = microserviceProxy.findLoanByUser(userCurrent.getId());
             model.addAttribute("loans",loans);
             return "loans";
         }
@@ -112,7 +104,7 @@ public class ClientController {
 
     @GetMapping("/extension/{id}")
     public String addExtension(@PathVariable(name = "id") Long id){
-        microserviceLoanEditProxy.addExtension(id);
+        microserviceProxy.addExtension(id);
         return "redirect:/LoansSearch/1";
     }
 
@@ -124,7 +116,7 @@ public class ClientController {
             model.addAttribute("search",search);
             return "redirect:/";
         }
-        List<BookBean> books = microserviceBookProxy.findBookByKeyword(search.getName());
+        List<BookBean> books = microserviceProxy.findBookByKeyword(search.getName());
         if (books.isEmpty())
             return "redirect:/";
         model.addAttribute("books",books);
