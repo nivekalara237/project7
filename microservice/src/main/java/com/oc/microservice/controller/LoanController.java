@@ -84,6 +84,6 @@ public class LoanController {
         Optional<Loan> loan= loanDao.findById(id);
         //if(!loan.isPresent()) throw new LoanNotFoundException("Le pret avec l'id "+id+" n'existe pas.");
         extensionService.addExtension(loan.get());
-        Loan loanCheck = loanDao.save(loan.get());
+        loanDao.save(loan.get());
     }
 }
