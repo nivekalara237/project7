@@ -18,10 +18,8 @@ public class BookController {
     private BookDao bookDao;
 
     @GetMapping(value = "BooksSearch/{keyword}")
-    public List<Book> findBookByKeyword(@PathVariable String keyword) throws BookNotFoundException {
+    public List<Book> findBookByKeyword(@PathVariable String keyword){
        List<Book> bookList = bookDao.findByKeyword(keyword);
-//        if(bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage avec la recherche "+keyword+" n'a été trouvé.");
-//        // Si une exception est levé, alors bookList n'est jamais renvoyé
         return bookList;
     }
 
@@ -30,23 +28,9 @@ public class BookController {
         return bookDao.findById(id).orElseThrow(() -> new BookNotFoundException("L'ouvrage avec l'id "+id+" n'existe pas."));
     }
 
-    @PostMapping(value = "Books")
-    public ResponseEntity<Void> addBook(@Valid @RequestBody Book book){
-        Book bookCheck = bookDao.save(book);
-        if(bookCheck == null)
-            return ResponseEntity.noContent().build();
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(bookCheck.getId())
-                .toUri();
-        return ResponseEntity.created(location).build();
-    }
-
     @GetMapping(value = "Books")
     public List<Book> ListBook(){
         List<Book> bookList = bookDao.findAll();
-        //if( bookList.isEmpty()) throw new BookNotFoundException("Aucun ouvrage n'a été trouvé.");
         return bookList;
     }
 }

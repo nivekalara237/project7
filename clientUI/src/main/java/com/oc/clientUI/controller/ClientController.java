@@ -96,7 +96,6 @@ public class ClientController {
     public String showListLoanByUser(Model model, HttpServletRequest request) {
         UserBean userCurrent = getUserSession(request);
         model.addAttribute("userCurrent", userCurrent);
-        System.out.println("1");
         if (userCurrent.getRole() == Role.USER) {
             List<LoanBean> loans = microserviceProxy.findLoanByUser(userCurrent.getId());
             model.addAttribute("loans", loans);
@@ -109,7 +108,7 @@ public class ClientController {
     @GetMapping("/extension/{id}")
     public String addExtension(@PathVariable(name = "id") Long id) {
         microserviceProxy.addExtension(id);
-        return "redirect:/LoansSearch/1";
+        return "redirect:/LoansSearch";
     }
 
     @PostMapping("/search")
