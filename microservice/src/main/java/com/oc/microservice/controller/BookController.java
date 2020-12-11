@@ -4,12 +4,8 @@ import com.oc.microservice.dao.BookDao;
 import com.oc.microservice.exceptions.BookNotFoundException;
 import com.oc.microservice.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 @RestController
